@@ -1,3 +1,4 @@
+import fastifyJwt from "@fastify/jwt";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import fastify from "fastify";
@@ -6,6 +7,10 @@ import {
 	serializerCompiler,
 	validatorCompiler,
 } from "fastify-type-provider-zod";
+import { env } from "./lib/env";
+import { createAccount } from "./http/user/create-account";
+import { authenticate } from "./http/user/authenticate";
+import { profile } from "./http/user/profile";
 
 export const app = fastify();
 
@@ -24,6 +29,14 @@ app.register(fastifySwagger, {
 	transform: jsonSchemaTransform,
 });
 
+app.register(fastifyJwt, {
+	secret: env.JWT_SECRET,
+});
+
 app.register(fastifySwaggerUi, {
 	routePrefix: "/documentation",
 });
+
+app.register(createAccount);
+app.register(authenticate);
+app.register(profile);
