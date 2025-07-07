@@ -34,7 +34,7 @@ export async function profile(app: FastifyInstance) {
 			if (!user) {
 				return reply
 					.status(400)
-					.send({ message: "User with same e-mail does not exist." });
+					.send({ message: "User with same e-mail does not exist" });
 			}
 
 			return reply.status(201).send({
