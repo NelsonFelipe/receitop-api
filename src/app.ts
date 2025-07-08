@@ -10,12 +10,15 @@ import {
 import { env } from "./lib/env";
 import { createAccount } from "./http/user/create-account";
 import { authenticate } from "./http/user/authenticate";
-import { profile } from "./http/user/profile";
+import { getProfile } from "./http/user/profile";
+import { errorHandler } from "./http/_errors/error-handler";
 
 export const app = fastify();
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+app.setErrorHandler(errorHandler)
+
 
 app.register(fastifySwagger, {
 	openapi: {
@@ -30,7 +33,7 @@ app.register(fastifySwagger, {
 });
 
 app.register(fastifyJwt, {
-	secret: env.JWT_SECRET,
+	secret: "jwt-secret",
 });
 
 app.register(fastifySwaggerUi, {
@@ -39,4 +42,4 @@ app.register(fastifySwaggerUi, {
 
 app.register(createAccount);
 app.register(authenticate);
-app.register(profile);
+app.register(getProfile);
