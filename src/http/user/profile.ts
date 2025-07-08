@@ -2,9 +2,11 @@ import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { prisma } from "../../lib/prisma";
+import { NotFoundError } from "../_errors/not-found-error";
+import { auth } from "../middlewares/auth";
 
 export async function profile(app: FastifyInstance) {
-	app.withTypeProvider<ZodTypeProvider>().get(
+	app.withTypeProvider<ZodTypeProvider>().register(auth).get(
 		"/profile",
 		{
 			schema: {
@@ -32,9 +34,7 @@ export async function profile(app: FastifyInstance) {
 			});
 
 			if (!user) {
-				return reply
-					.status(400)
-					.send({ message: "User with same e-mail does not exist" });
+				throw new NotFoundError("User with same e-mail does not exist")
 			}
 
 			return reply.status(201).send({

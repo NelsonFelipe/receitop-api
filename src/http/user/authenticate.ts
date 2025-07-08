@@ -3,6 +3,7 @@ import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { prisma } from "../../lib/prisma";
+import { BadRequestError } from "../_errors/bad-request";
 
 const authenticateWithPasswordSchema = z.object({
 	email: z.string().email(),
@@ -37,9 +38,7 @@ export async function authenticate(app: FastifyInstance) {
 			});
 
 			if (!userFromEmail) {
-				return reply
-					.status(400)
-					.send({ message: "User with same e-mail does not exist." });
+				throw new BadRequestError("User with same e-mail does not exist.")
 			}
 
 			const isPasswordValid = await compare(
@@ -48,7 +47,7 @@ export async function authenticate(app: FastifyInstance) {
 			);
 
 			if (!isPasswordValid) {
-				return reply.status(400).send({ message: "Invalid password." });
+				throw new BadRequestError("Invalid password.")
 			}
 
 			const token = await reply.jwtSign(
