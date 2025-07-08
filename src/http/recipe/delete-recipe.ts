@@ -25,7 +25,7 @@ export async function deleteRecipe(app: FastifyInstance) {
     },
     async (request, reply) => {
 
-   const recipe = await prisma.recipe.delete({
+    const recipe = await prisma.recipe.delete({
         where: {
             id: request.params.id,
         },
