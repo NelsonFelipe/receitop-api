@@ -7,18 +7,22 @@ import {
 	serializerCompiler,
 	validatorCompiler,
 } from "fastify-type-provider-zod";
-import { env } from "./lib/env";
-import { createAccount } from "./http/user/create-account";
-import { authenticate } from "./http/user/authenticate";
-import { getProfile } from "./http/user/profile";
 import { errorHandler } from "./http/_errors/error-handler";
+import { createRecipe } from "./http/recipe/create-recipe";
+import { deleteRecipe } from "./http/recipe/delete-recipe";
+import { favoriteRecipe } from "./http/recipe/favorite-recipe";
+import { getRecipe } from "./http/recipe/get-recipe";
+import { getRecipeById } from "./http/recipe/get-recipe-by-id";
+import { authenticate } from "./http/user/authenticate";
+import { createAccount } from "./http/user/create-account";
+import { getProfile } from "./http/user/profile";
+import { env } from "./lib/env";
 
 export const app = fastify();
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
-app.setErrorHandler(errorHandler)
-
+app.setErrorHandler(errorHandler);
 
 app.register(fastifySwagger, {
 	openapi: {
@@ -43,3 +47,8 @@ app.register(fastifySwaggerUi, {
 app.register(createAccount);
 app.register(authenticate);
 app.register(getProfile);
+app.register(createRecipe);
+app.register(getRecipe);
+app.register(getRecipeById);
+app.register(favoriteRecipe);
+app.register(deleteRecipe);
