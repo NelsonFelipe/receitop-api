@@ -39,7 +39,7 @@ export async function createAccount(app: FastifyInstance) {
 			});
 
 			if (userWithSameEmail) {
-				throw new BadRequestError("User with same e-mail already exists.")
+				throw new BadRequestError("Usuário com o mesmo e-mail já existe.");
 			}
 
 			const passwordHash = await hash(password, 6);
@@ -53,7 +53,7 @@ export async function createAccount(app: FastifyInstance) {
 			});
 
 			return reply.status(201).send({
-				message: "User created successfully.",
+				message: "Usuário criado com sucesso.",
 			});
 		},
 	);

@@ -38,7 +38,7 @@ export async function authenticate(app: FastifyInstance) {
 			});
 
 			if (!userFromEmail) {
-				throw new BadRequestError("User with same e-mail does not exist.")
+				throw new BadRequestError("Usuário com o mesmo e-mail não existe.");
 			}
 
 			const isPasswordValid = await compare(
@@ -47,7 +47,7 @@ export async function authenticate(app: FastifyInstance) {
 			);
 
 			if (!isPasswordValid) {
-				throw new BadRequestError("Invalid password.")
+				throw new BadRequestError("Senha inválida.");
 			}
 
 			const token = await reply.jwtSign(
