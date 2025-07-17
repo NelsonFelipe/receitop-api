@@ -32,6 +32,7 @@ export async function createRecipe(app: FastifyInstance) {
 				},
 			},
 			async (request, reply) => {
+				const _ = await request.getCurrentUserId();
 				const { name, description, ingredients, steps, imageUrl } =
 					request.body;
 

@@ -33,6 +33,8 @@ export async function getRecipeById(app: FastifyInstance) {
 				},
 			},
 			async (request, reply) => {
+				const _ = await request.getCurrentUserId();
+
 				const recipe = await prisma.recipe.findUnique({
 					where: {
 						id: request.params.id,

@@ -30,6 +30,7 @@ export async function favoriteRecipe(app: FastifyInstance) {
 			},
 			async (request, reply) => {
 				const { id } = request.params;
+				const userId = await request.getCurrentUserId();
 
 				const recipe = await prisma.recipe.findUnique({
 					where: { id },
@@ -41,7 +42,7 @@ export async function favoriteRecipe(app: FastifyInstance) {
 
 				await prisma.favorite.create({
 					data: {
-						userId: request.user.sub,
+						userId,
 						recipeId: id,
 					},
 				});

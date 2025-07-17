@@ -11,12 +11,12 @@ import { errorHandler } from "./http/_errors/error-handler";
 import { createRecipe } from "./http/recipe/create-recipe";
 import { deleteRecipe } from "./http/recipe/delete-recipe";
 import { favoriteRecipe } from "./http/recipe/favorite-recipe";
+import { getFavoriteRecipe } from "./http/recipe/get-favorite-recipe";
 import { getRecipe } from "./http/recipe/get-recipe";
 import { getRecipeById } from "./http/recipe/get-recipe-by-id";
 import { authenticate } from "./http/user/authenticate";
 import { createAccount } from "./http/user/create-account";
 import { getProfile } from "./http/user/profile";
-import { env } from "./lib/env";
 
 export const app = fastify();
 
@@ -41,7 +41,7 @@ app.register(fastifyJwt, {
 });
 
 app.register(fastifySwaggerUi, {
-	routePrefix: "/documentation",
+	routePrefix: "/docs",
 });
 
 app.register(createAccount);
@@ -51,4 +51,5 @@ app.register(createRecipe);
 app.register(getRecipe);
 app.register(getRecipeById);
 app.register(favoriteRecipe);
+app.register(getFavoriteRecipe);
 app.register(deleteRecipe);

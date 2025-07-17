@@ -4,16 +4,16 @@ import z from "zod";
 import { prisma } from "../../lib/prisma";
 import { auth } from "../middlewares/auth";
 
-export async function getRecipe(app: FastifyInstance) {
+export async function getFavoriteRecipe(app: FastifyInstance) {
 	app
 		.withTypeProvider<ZodTypeProvider>()
 		.register(auth)
 		.get(
-			"/recipe",
+			"/favorite-recipe",
 			{
 				schema: {
 					tags: ["Recipe"],
-					summary: "Get all recipes",
+					summary: "Get all favorite recipes",
 					response: {
 						200: z.array(
 							z.object({
@@ -31,8 +31,15 @@ export async function getRecipe(app: FastifyInstance) {
 				},
 			},
 			async (request, reply) => {
-				const _ = await request.getCurrentUserId();
+				const userId = await request.getCurrentUserId();
 				const recipes = await prisma.recipe.findMany({
+					where: {
+						favorites: {
+							some: {
+								userId,
+							},
+						},
+					},
 					orderBy: {
 						createdAt: "desc",
 					},
