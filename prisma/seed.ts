@@ -3,7 +3,95 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+	await prisma.recipe.deleteMany();
+
 	const recipes = [
+		{
+			name: "Lasanha à Bolonhesa",
+			description:
+				"Camadas de massa intercaladas com molho bolonhesa e queijo.",
+			imageUrl:
+				"https://guiadacozinha.com.br/wp-content/uploads/2019/10/lasanha-bolonhesa.jpg",
+			ingredients: [
+				"Massa para lasanha",
+				"500g de carne moída",
+				"1 cebola picada",
+				"2 dentes de alho picados",
+				"Molho de tomate",
+				"Queijo mussarela",
+				"Presunto",
+				"Sal e temperos a gosto",
+			],
+			steps: [
+				"Refogue a carne moída com alho e cebola.",
+				"Adicione o molho de tomate e tempere.",
+				"Em um refratário, monte camadas de molho, massa, presunto e queijo.",
+				"Finalize com queijo por cima e leve ao forno para assar por 30 minutos.",
+			],
+		},
+		{
+			name: "Cuscuz Nordestino",
+			description:
+				"Prato típico feito com flocos de milho cozidos no vapor, simples e delicioso.",
+			imageUrl:
+				"https://www.minhareceita.com.br/app/uploads/2025/05/cuscuz-nordestino-portal-minha-receita.webp",
+			ingredients: [
+				"2 xícaras de flocão de milho",
+				"1 xícara de água",
+				"Sal a gosto",
+				"Manteiga ou margarina",
+			],
+			steps: [
+				"Em uma tigela, misture o flocão, água e sal. Deixe hidratar por 10 minutos.",
+				"Coloque a massa em uma cuscuzeira e leve ao fogo por cerca de 15 minutos.",
+				"Desenforme e sirva com manteiga derretida ou acompanhamento a gosto.",
+			],
+		},
+		{
+			name: "Omelete de Legumes",
+			description: "Omelete leve e nutritiva com legumes variados.",
+			imageUrl:
+				"https://guiadacozinha.com.br/wp-content/uploads/2019/10/omelete-de-legumes.jpg",
+			ingredients: [
+				"2 ovos",
+				"1/2 cenoura ralada",
+				"1/2 tomate picado",
+				"1/4 de cebola picada",
+				"Sal e pimenta a gosto",
+				"Cheiro-verde",
+				"Azeite para untar",
+			],
+			steps: [
+				"Bata os ovos com sal, pimenta e cheiro-verde.",
+				"Misture os legumes.",
+				"Aqueça uma frigideira untada e despeje a mistura.",
+				"Cozinhe dos dois lados até dourar.",
+			],
+		},
+		{
+			name: "Moqueca de Peixe",
+			description:
+				"Peixe cozido com leite de coco, pimentões e dendê. Clássico da culinária brasileira.",
+			imageUrl:
+				"https://painacozinha.com/wp-content/uploads/67.Moqueca-de-Peixe.webp",
+			ingredients: [
+				"800g de filé de peixe (cação ou robalo)",
+				"1 limão",
+				"1 cebola fatiada",
+				"1 tomate fatiado",
+				"1 pimentão fatiado",
+				"200ml de leite de coco",
+				"Azeite de dendê",
+				"Coentro",
+				"Sal e pimenta a gosto",
+			],
+			steps: [
+				"Tempere o peixe com sal, pimenta e limão. Deixe marinar.",
+				"Em uma panela, alterne camadas de cebola, tomate, pimentão e peixe.",
+				"Regue com leite de coco e azeite de dendê.",
+				"Cozinhe em fogo baixo por 20 minutos, finalize com coentro e sirva.",
+			],
+		},
 		{
 			name: "Bolo de Cenoura",
 			description: "Um bolo fofinho e delicioso com cobertura de chocolate.",
