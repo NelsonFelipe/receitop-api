@@ -1,3 +1,4 @@
+import fastifyCors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
@@ -39,6 +40,10 @@ app.register(fastifySwagger, {
 
 app.register(fastifyJwt, {
 	secret: "jwt-secret",
+});
+
+app.register(fastifyCors, {
+	origin: "*",
 });
 
 app.register(fastifySwaggerUi, {
